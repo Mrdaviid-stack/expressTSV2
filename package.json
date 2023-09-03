@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "build": "npx tsc",
-        "prod": "node build/index.js",
+        "prod": "node -r dotenv/config build/index.js",
         "dev": "nodemon -r dotenv/config index.ts"
     },
     "author": "Mark David Bogayan <mrkdvdbgyn@gmail.com>",
