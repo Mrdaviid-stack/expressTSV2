@@ -1,8 +1,8 @@
-import { Server } from "./src/app";
+import bootstrap from "./src/app";
 
 (async () => {
     try {
-        Server();
+        bootstrap();
     } catch (error) {
         console.error(error);
     }
