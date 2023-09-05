@@ -1,6 +1,6 @@
 class PagesServices {
-    public static get() {
-        return "Pages";
+    public static get(): Promise<String> {
+        return Promise.resolve("Pages");
     }
 }
 
