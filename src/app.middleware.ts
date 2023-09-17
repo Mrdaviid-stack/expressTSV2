@@ -1,9 +1,13 @@
 import express, { Express } from "express";
 import cors from "cors";
+import helmet from "helmet";
 import morgan from "morgan";
+import compression from "compression";
+import cookieParser from "cookie-parser";
 import momentTimzone from "moment-timezone";
 
 function middleware(app: Express) {
+    app.use(helmet());
     app.use(
         cors({
             origin: process.env.WHITELIST,
@@ -11,8 +15,12 @@ function middleware(app: Express) {
         }),
     );
 
+    app.use(compression());
+
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
+
+    app.use(cookieParser());
 
     app.use(
         morgan((tokens, req, res) => {
@@ -32,6 +40,7 @@ function middleware(app: Express) {
             ].join(" ");
         }),
     );
+
 }
 
 export default middleware;
