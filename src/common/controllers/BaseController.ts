@@ -8,7 +8,7 @@ import BaseModel from "../models/BaseModel";
  */
 
 class BaseController {
-    public model;
+    private model;
     constructor(model: BaseModel) {
         this.model = model;
     }
