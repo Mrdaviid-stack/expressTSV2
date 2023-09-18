@@ -52,7 +52,6 @@ class BaseModel {
 
     // CRUD OPERATION BELOW //
 
-    ///////////////////////////////////////////////////////////////
     findAll(page: number = 1, limit: number = 10) {
         const query = (
             BaseModel.transaction
@@ -94,11 +93,10 @@ class BaseModel {
                 : this.query()
         )
             .insert(data)
-            .returning(returnColumns || "*");
 
         this.lasQuery = query.toQuery();
 
-        return query.then((result) => result || 0);
+        return query.then((result) => this.query().table(this.table).where({ [this.primaryKey]: result[0] }).first() || 0);
     }
 
     ///////////////////////////////////////////////////////////////

@@ -1,3 +1,5 @@
+'use strict'
+
 import { Request, Response } from "express";
 import BaseModel from "../models/BaseModel";
 
@@ -6,17 +8,13 @@ import BaseModel from "../models/BaseModel";
  */
 
 class BaseController {
-    model;
+    public model;
     constructor(model: BaseModel) {
         this.model = model;
     }
 
-    async test(request: Request, response: Response): Promise<any> {
-        response.send("test");
-    }
-
     ///////////////////////////////////////////////////////////////
-    async getAll(request: Request, response: Response): Promise<any> {
+    public getAll = async (request: Request, response: Response): Promise<any> => {
         let { page, limit } = request.query;
 
         const records = await this.model.findAll(Number(page), Number(limit));
@@ -31,7 +29,7 @@ class BaseController {
     }
 
     ///////////////////////////////////////////////////////////////v
-    async getById(request: Request, response: Response): Promise<any> {
+    public getById = async (request: Request, response: Response): Promise<any> => {
         const { id } = request.params;
 
         const record = await this.model.find(id);
@@ -46,7 +44,7 @@ class BaseController {
     }
 
     ///////////////////////////////////////////////////////////////
-    async save(request: Request, response: Response): Promise<any> {
+    public save = async (request: Request, response: Response): Promise<any> => {
         const { body, method } = request;
 
         if (method !== "POST" && method !== "PATCH")
@@ -70,7 +68,7 @@ class BaseController {
     }
 
     ///////////////////////////////////////////////////////////////
-    async destroy(request: Request, response: Response): Promise<any> {
+    public destroy = async (request: Request, response: Response): Promise<any> => {
         const { id } = request.params;
 
         const deleteResult = await this.model.delete(id);

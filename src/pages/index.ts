@@ -3,7 +3,10 @@ import Pages from "./controllers/pages.controller";
 
 const PagesModule = Router();
 
-PagesModule.route("/pages").get(Pages.get);
-PagesModule.route("/pages/test").get(Pages.prototype.test);
+const pages = new Pages()
+
+PagesModule.route("/pages")
+    .get(pages.getAll)
+    .post(pages.save)
 
 export default PagesModule;

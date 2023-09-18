@@ -1,15 +1,15 @@
 import BaseModel from "../../common/models/BaseModel";
 
-const PagesModel = new (class extends BaseModel {
+class PagesModel extends BaseModel {
     constructor() {
         super({
             table: "pages",
-            primaryKey: "page_uuid",
+            primaryKey: "page_id",
             singularName: "page",
             defaultOrder: "desc",
             defaultOrderColumn: "page_id",
         });
     }
-})();
+};
 
 export default PagesModel;
