@@ -1,14 +1,18 @@
 import { Request, Response } from "express";
+import BaseController from "../../common/controllers/BaseController";
 
 import PagesModel from "../models/PagesModel";
-
+import { pagesValidationsRule } from "../validator/pages.validator";
 import PagesServices from "../providers/pages.service";
-import BaseController from "../../common/controllers/BaseController";
+
 
 class Pages extends BaseController {
     
     constructor() {
-        super(new PagesModel())
+        super({
+            model: PagesModel,
+            validationsRule: pagesValidationsRule,
+        })
     }
 
 }

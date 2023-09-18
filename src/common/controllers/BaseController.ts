@@ -1,16 +1,29 @@
 'use strict'
 
 import { Request, Response } from "express";
+import _ from "lodash";
+import { checkSchema, Schema } from "express-validator/src/middlewares/schema";
 import BaseModel from "../models/BaseModel";
+
+import { formatValidationsError } from "../helpers/helpers"
 
 /**
  * @author Mark David Bogayan <mrkdvdbgyn@gmail.com>
  */
 
+type ConstructorType = {
+    model: BaseModel;
+    validationsRule?: Schema;
+}
+
 class BaseController {
     private model;
-    constructor(model: BaseModel) {
+    private validationsRule
+    constructor({ model, validationsRule }: ConstructorType) {
         this.model = model;
+        if (! this.validationsRule)
+            this.validationsRule = {}
+        this.validationsRule = validationsRule
     }
 
     ///////////////////////////////////////////////////////////////
@@ -46,9 +59,23 @@ class BaseController {
     ///////////////////////////////////////////////////////////////
     public save = async (request: Request, response: Response): Promise<any> => {
         const { body, method } = request;
-
         if (method !== "POST" && method !== "PATCH")
             return response.sendStatus(500);
+
+        // if validationRule is not provided skip this validation.
+        if (! _.isEmpty(this.validationsRule)) {
+
+            const validate = await checkSchema(this.validationsRule).run(request)
+
+            if (! validate[0].isEmpty()) {
+                const result = formatValidationsError(validate[0].formatWith(error => error.msg as string))
+                return response.status(403).json({
+                    error: true,
+                    message: 'Validation found',
+                    data: result
+                })
+            }
+        }
 
         const isPost = method === "POST";
         const { id } = request.params;

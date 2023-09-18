@@ -1,12 +1,12 @@
 import { Express, Router } from "express";
 import Pages from "./controllers/pages.controller";
 
-const PagesModule = Router();
+const router = Router();
+const PagesModule = Router().use('/pages', router);
 
 const pages = new Pages()
 
-PagesModule.route("/pages")
-    .get(pages.getAll)
-    .post(pages.save)
+router.get('/', pages.getAll);
+router.post('/add', pages.save);
 
 export default PagesModule;
