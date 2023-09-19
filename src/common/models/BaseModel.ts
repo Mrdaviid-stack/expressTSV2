@@ -1,7 +1,7 @@
 import DB from "../../app.connection";
 import { Knex } from "knex";
 
-import { BaseModelType } from "../typings/BaseModelTypes";
+import { BaseModelType } from "../types/BaseModelTypes";
 
 /**
  * @author Mark David Bogayan <mrkdvdbgyn@gmail.com>
