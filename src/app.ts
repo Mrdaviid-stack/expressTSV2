@@ -11,7 +11,7 @@ async function bootstrap() {
     const port: number = Number(process.env.PORT);
 
     middleware(app);
-    app.get("/", (req, res) => res.send("index"));
+    app.get("/", (req, res) => res.send("Welcome to API!"));
     router(app);
     app.use("/api/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 

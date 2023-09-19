@@ -19,11 +19,3 @@ export function formatValidationsError(errors: any) {
     }
     return newError
 }
-
-// type FieldValidationError = {
-//     type: 'field';
-//     location: Location;
-//     path: string;
-//     value: any;
-//     msg: any;
-//   };

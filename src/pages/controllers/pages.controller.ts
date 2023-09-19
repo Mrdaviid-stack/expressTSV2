@@ -3,7 +3,6 @@ import BaseController from "../../common/controllers/BaseController";
 
 import PagesModel from "../models/PagesModel";
 import { pagesValidationsRule } from "../validator/pages.validator";
-import PagesServices from "../providers/pages.service";
 
 
 class Pages extends BaseController {
@@ -17,4 +16,5 @@ class Pages extends BaseController {
 
 }
 
-export default Pages;
+const pages = new Pages()
+export default pages as Pages;

@@ -27,7 +27,7 @@ class BaseController {
     }
 
     ///////////////////////////////////////////////////////////////
-    public getAll = async (request: Request, response: Response): Promise<any> => {
+    public findAll = async (request: Request, response: Response): Promise<any> => {
         let { page, limit } = request.query;
 
         const records = await this.model.findAll(Number(page), Number(limit));
@@ -42,7 +42,7 @@ class BaseController {
     }
 
     ///////////////////////////////////////////////////////////////v
-    public getById = async (request: Request, response: Response): Promise<any> => {
+    public findById = async (request: Request, response: Response): Promise<any> => {
         const { id } = request.params;
 
         const record = await this.model.find(id);
