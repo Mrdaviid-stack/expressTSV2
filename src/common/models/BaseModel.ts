@@ -108,7 +108,6 @@ class BaseModel {
         )
             .where({ [this.primaryKey]: id })
             .update(data)
-            .returning("*");
 
         this.lasQuery = query.toQuery();
 

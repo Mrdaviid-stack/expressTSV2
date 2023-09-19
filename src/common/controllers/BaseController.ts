@@ -62,23 +62,23 @@ class BaseController {
         if (method !== "POST" && method !== "PATCH")
             return response.sendStatus(500);
 
+        const isPost = method === "POST";
+        const { id } = request.params;
+
         // if validationRule is not provided skip this validation.
-        if (! _.isEmpty(this.validationsRule)) {
+        if (! _.isEmpty(this.validationsRule) && !isPost) {
 
             const validate = await checkSchema(this.validationsRule).run(request)
 
             if (! validate[0].isEmpty()) {
                 const result = formatValidationsError(validate[0].formatWith(error => error.msg as string))
-                return response.status(403).json({
+                return response.status(409).json({
                     error: true,
                     message: 'Validation found',
                     data: result
                 })
             }
         }
-
-        const isPost = method === "POST";
-        const { id } = request.params;
 
         const result = await (isPost
             ? this.model.insert(body)

@@ -6,5 +6,7 @@ const PagesModule = Router().use('/pages', router);
 
 router.get('/', Pages.findAll);
 router.post('/add', Pages.save);
+router.patch('/edit/:id', Pages.save);
+router.delete('/del/:id', Pages.destroy);
 
 export default PagesModule;
